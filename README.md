@@ -1,175 +1,237 @@
-gmenu
-gmenu is a lightweight, customizable, graphical menu application for X11 environments, written in C. It provides a right-click context menu with support for submenus, color-coded labels, transparency, and command execution. Ideal for desktop environments or window managers lacking a built-in menu system.
-Features
-Right-Click Activation: Trigger the menu with a right-click (Button3) on the root window.
+# gmenu
 
-Customizable Appearance: Configurable colors (foreground, background, selected states), transparency, border width, and font via .gmenurc.
+gmenu is a lightweight, X11-based menu launcher designed for quick access to your favorite applications and system utilities. It reads configuration and menu item files from the user’s configuration directory and supports dynamic, multi-level menus with customizable styling.
+![image](https://github.com/user-attachments/assets/01c58e76-7b5c-441e-b565-a2e93953555a)
 
-Submenu Support: Nested menu items with dynamic positioning and hover-based expansion.
 
-Color-Coded Labels: Use <color='#RRGGBB'>text</color> syntax in .gmenu_items for styled text segments.
+## Project Dependencies
 
-Command Execution: Execute shell commands or launch applications, with optional terminal support (default: alacritty -e).
+- **X11 Libraries:**  
+  gmenu uses the core X11 libraries for window management and event handling.
+  
+- **Xrender:**  
+  The Xrender extension is used to manage advanced graphical effects, including transparency and smooth rendering.
+  
+- **Xft:**  
+  For improved text rendering, gmenu relies on the Xft library, which offers support for anti-aliased fonts.
 
-Dynamic Sizing: Automatically adjusts menu width based on content, with padding and icon support.
+- **Standard Unix Libraries:**  
+  Additional dependencies include standard libraries for input/output, string handling, time functions, and process management.
 
-Separators: Add visual breaks in the menu using ___ in the items file.
+## Font Requirements
 
-Transparency: Supports alpha blending for both normal and hover states.
+- **Xft-Compatible Fonts:**  
+  gmenu requires an Xft-compatible font to render menu text.  
+  - A default fallback (typically "fixed") is used if the specified font is not available.
+  - The configuration file allows you to set any preferred font. For example, you might use "SF Pro Display:style=Regular:size=12" or any other font installed on your system.
 
-Logging: Debug output written to a log file (if enabled).
+## Documented Capabilities
 
-Dependencies
-To build and run gmenu, ensure the following libraries and tools are installed:
-X11 Libraries:
-libX11 (Xlib for core X functionality)
+- **Dynamic Menu Generation:**  
+  Reads menu items from a user-provided file, allowing you to define top-level entries and submenus.
+  
+- **Customizable Appearance:**  
+  - Configure foreground and background colors.
+  - Set transparency levels for both normal and hover states.
+  - Adjust padding, border width, and submenu offsets.
+  
+- **Color-Coded Menu Items:**  
+  Supports inline color markup in menu labels for enhanced visual feedback.
+  
+- **Submenus:**  
+  Allows the creation of hierarchical menus, making it easy to group related commands under a single entry.
+  
+- **Command Execution:**  
+  Executes specified shell commands when a menu item is selected, including support for launching terminal-based commands.
+  
+- **Logging:**  
+  All actions and errors are logged to a file, which helps in troubleshooting and understanding menu interactions.
 
-libXrender (rendering extension for transparency)
+- **Mouse Interaction:**  
+  Uses X11 event handling to provide intuitive mouse-based selection, hover effects, and automatic submenu creation.
 
-Xft:
-libXft (font rendering with FreeType)
+# .gmenurc Configuration File
 
-Development Tools:
-gcc (or another C compiler)
+The `.gmenurc` file is the configuration file for gmenu that allows you to customize its appearance and behavior without changing the source code. It is typically located in your configuration directory (e.g., `~/.config/gmenu/`).
 
-make (for building with the provided Makefile)
+## Available Settings
 
-pkg-config (to resolve Xft dependencies during compilation)
+- **foreground**  
+  Specifies the default text color for menu items. The color is provided in hexadecimal format (e.g., `#338292`).
 
-Optional:
-alacritty (default terminal emulator; can be customized via TERMINAL define)
+- **background**  
+  Sets the background color of the menu using a hexadecimal color code (e.g., `#000000`).
 
-Installation on Debian/Ubuntu
-bash
+- **selected_fg**  
+  Defines the text color for a highlighted or selected menu item (e.g., `#060810`).
 
-sudo apt update
-sudo apt install libx11-dev libxrender-dev libxft-dev build-essential pkg-config alacritty
+- **selected_bg**  
+  Sets the background color for the selected menu item (e.g., `#338292`).
 
-Installation on Fedora
-bash
+- **font**  
+  Specifies the Xft-compatible font used to render the menu text. For example, `SF Pro Display:style=Regular:size=12` determines the font style and size.
 
-sudo dnf install libX11-devel libXrender-devel libXft-devel make gcc pkg-config alacritty
+- **transparency**  
+  Determines the transparency level for non-selected menu items. Values range from 0.0 (completely transparent) to 1.0 (fully opaque), e.g., `0.5`.
 
-Installation on Arch Linux
-bash
+- **border_width**  
+  Sets the width of the border around the menu in pixels (e.g., `1`).
 
-sudo pacman -S libx11 libxrender libxft base-devel pkgconf alacritty
+- **border_color**  
+  Specifies the border color using a hexadecimal color code (e.g., `#5E6E9B`).
 
-Font Requirements
-gmenu uses the Xft library for font rendering and requires a valid font specification in .gmenurc. By default, it falls back to "fixed" if no font is specified or if the specified font is unavailable.
-Font Format: Use Xft-compatible font names (e.g., "SF Pro Display:style=Regular:size=12").
+- **submenu_offset**  
+  Adjusts the horizontal offset for submenus relative to the main menu. A positive value shifts the submenu to the right, while a negative value shifts it to the left (e.g., `-10`).
 
-Checking Available Fonts: Use fc-list (from fontconfig) to list installed fonts:
-bash
+- **icon_left_padding**  
+  Sets the padding on the left side of any icons within the menu (e.g., `5`).
 
-fc-list | grep "SF Pro"
+- **icon_right_padding**  
+  Sets the padding on the right side of icons (e.g., `2`).
 
-Installation: Install desired fonts via your package manager or manually (e.g., sudo apt install fonts-sf-pro if available).
+- **hover_transparency**  
+  Defines the transparency level for a hovered (selected) menu item. Like the normal transparency, it ranges from 0.0 to 1.0 (e.g., `0.7`).
 
-If the configured font is not found, gmenu will attempt to use "fixed". Ensure at least a basic X11 font is available.
-Build and Installation
-Clone the Repository:
-bash
+## Usage
 
-git clone https://github.com/yourusername/gmenu.git
-cd gmenu
+When gmenu starts, it reads the `.gmenurc` file to apply your custom settings. This makes it easy to adjust the visual style and layout of the menu to better match your desktop environment or personal preferences.
 
-Build:
-bash
 
-make
+# .gmenu_items File
 
-Install (optional, installs to /usr/bin/):
-bash
+The `.gmenu_items` file defines the menu structure and the commands that gmenu executes. It allows you to create top-level menu items, submenus, separators, and apply inline color formatting to menu labels.
 
-sudo make install
+## Structure and Syntax
 
-Clean (optional):
-bash
+- **Top-Level Items**  
+  Each line for a top-level menu item should include a label and its corresponding command, separated by " = ". For example:  
+  `File Manager = thunar`  
+  This creates a menu item labeled "File Manager" that launches the Thunar file manager when selected.
 
-make clean
+- **Submenu Items**  
+  To create submenu items, begin the line with `==`. These lines are associated with the most recent top-level item. For example:  
+  `== VS Code = code`  
+  This indicates that "VS Code" is a submenu item for the preceding parent item.
 
-Configuration
-.gmenurc
-Place this file in ~/.config/gmenu/.gmenurc to customize the menu's appearance. Example:
-ini
+- **Separators**  
+  Use a line containing three underscores `___` to insert a visual separator between groups of menu items. Separators help organize the menu into logical sections.
 
-foreground = #338292
-background = #000000
-selected_fg = #060810
-selected_bg = #338292
-font = SF Pro Display:style=Regular:size=12
-transparency = 0.5
-hover_transparency = 0.7
-border_width = 1
-border_color = #5E6E9B
-submenu_offset = -10
-icon_left_padding = 5
-icon_right_padding = 2
+- **Inline Color Markup**  
+  Menu labels can include inline color formatting by wrapping text in `<color='#hexcode'>...</color>` tags. For example:  
+  `<color='#0078D7'>Icon</color> Microsoft Edge = microsoft-edge-dev --new-window`  
+  This applies the specified color to the "Icon" part of the label, while the rest of the text remains in the default color.
 
-Colors are in #RRGGBB hex format.
+## Example
 
-transparency and hover_transparency range from 0.0 (fully transparent) to 1.0 (opaque).
+A snippet from a `.gmenu_items` file might look like this:
 
-.gmenu_items
-Define menu items in ~/.config/gmenu/.gmenu_items. Syntax:
-label = command (top-level item)
+􀈖 File Manager = thunar  
+<color='#0078D7'>􀎭</color> Microsoft Edge = microsoft-edge-dev --new-window  
+<color='#007ACC'>􀙅</color> VS Code = code  
+􀎭 Qutebrowser = qutebrowser --target window https://google.com  
+___  
+􀉟 Coin Market = qutebrowser --target window https://coinmarketcap.com  
 
-== label = command (submenu item under the last top-level item)
+- The first four lines define top-level menu items with labels and commands.
+- The separator (`___`) divides the menu into distinct sections.
+- Additional items can be added after the separator.
 
-___ (separator)
+## Customization
 
-<color='#RRGGBB'>text</color> (colored text within labels)
+By editing the `.gmenu_items` file, you can:
+- Adjust the labels and commands to match your workflow.
+- Group related commands into submenus.
+- Use inline color markup to highlight or differentiate parts of the labels.
 
-Example:
+The file is read at runtime by gmenu, so any changes you make will be reflected the next time the menu is loaded.
 
-􀈖 File Manager = thunar
-<color='#0078D7'>􀎭</color> Microsoft Edge = microsoft-edge-dev --new-window
-___
-􀣌 System Utilities
-== 􀐙 EasyEffects = easyeffects
-== 􀚁 Pacman Update = bash -i -c 'alacritty -e sudo pacman -Syyuu'
+  
 
-Usage
-Run:
-bash
+## Installation & Usage
 
-./gmenu
+- **Compilation:**  
+  gmenu can be compiled using `gcc` with the necessary X11, Xrender, and Xft libraries linked. The provided Makefile automates this process.
 
-Or, if installed:
-bash
+- **Configuration:**  
+  - A configuration file (e.g., `.gmenurc`) allows you to customize fonts, colors, transparency, and other visual parameters.
+  - The menu items file (e.g., `.gmenu_items`) defines the commands to be executed for each menu entry.
 
-gmenu
+- **Execution:**  
+  After compiling and installing, gmenu can be run as a standalone menu launcher or integrated into your desktop environment's workflow.
 
-Interact:
-Right-click anywhere on the root window to show the menu.
+# Detailed Build Instructions for gmenu on Arch, Debian, and Fedora
 
-Hover over items to highlight them or open submenus.
+Follow the steps below for your specific distribution. Each section lists the required commands and processes, including cleaning previous builds, compiling, and installing gmenu.
 
-Left-click an item to execute its command.
+## Arch-Based Distributions
 
-Click outside the menu to dismiss it.
+1. **Update the System**  
+   Run: `sudo pacman -Syu`
 
-Capabilities
-Menu Structure: Supports up to 100 top-level items (MAX_ITEMS) and unlimited submenu items (limited by memory).
+2. **Install Dependencies**  
+   Ensure you have the required libraries and tools by running:  
+   `sudo pacman -S xorg-server xorg-apps libx11 libxrender libxft gcc make`
 
-Text Rendering: Renders UTF-8 text with Xft, including emoji and special characters.
+3. **Clone the Repository**  
+   Navigate to your desired source directory and clone gmenu:  
+   `git clone https://github.com/yourusername/gmenu.git`  
+   Then change into the repository:  
+   `cd gmenu`
 
-Dynamic Positioning: Adjusts menu and submenu positions to fit within screen boundaries.
+4. **Clean Previous Builds (if needed)**  
+   Run: `make clean`
 
-Command Flexibility: Runs commands in the background (&) and supports terminal-based execution for bash commands.
+5. **Compile the Project**  
+   Build gmenu by running: `make`
 
-Extensibility: Easily extendable via configuration files without recompiling.
+6. **Install gmenu**  
+   To install the executable system-wide, run: `sudo make install`
 
-Limitations
-Requires a 32-bit TrueColor visual for transparency (most modern systems support this).
+## Debian-Based Distributions
 
-No built-in icon support beyond text-based glyphs (e.g., emoji).
+1. **Update the Package Lists**  
+   Run: `sudo apt update`
 
-Logging is enabled only if log_file is set (not implemented in this version).
+2. **Install Dependencies**  
+   Install the required development packages by running:  
+   `sudo apt install libx11-dev libxrender-dev libxft-dev build-essential`
 
-Contributing
-Feel free to fork this repository, submit issues, or send pull requests. Suggestions for improving usability, performance, or adding features (e.g., image icons, keybindings) are welcome!
-License
-This project is released under the MIT License (LICENSE). See the LICENSE file for details.
+3. **Clone the Repository**  
+   Clone the gmenu repository into your chosen directory by running:  
+   `git clone https://github.com/yourusername/gmenu.git`  
+   Then change into the directory:  
+   `cd gmenu`
+
+4. **Clean Previous Builds (if needed)**  
+   Run: `make clean`
+
+5. **Compile the Project**  
+   Build gmenu by running: `make`
+
+6. **Install gmenu**  
+   Install the binary system-wide by running: `sudo make install`
+
+## Fedora-Based Distributions
+
+1. **Update the System**  
+   Run: `sudo dnf update`
+
+2. **Install Dependencies**  
+   Install the necessary development packages by running:  
+   `sudo dnf install libX11-devel libXrender-devel libXft-devel gcc make`
+
+3. **Clone the Repository**  
+   Clone the repository by running:  
+   `git clone https://github.com/yourusername/gmenu.git`  
+   Then change into the cloned directory:  
+   `cd gmenu`
+
+4. **Clean Previous Builds (if needed)**  
+   Run: `make clean`
+
+5. **Compile the Project**  
+   Build gmenu by running: `make`
+
+6. **Install gmenu**  
+   Install the compiled binary by running: `sudo make install`
 
