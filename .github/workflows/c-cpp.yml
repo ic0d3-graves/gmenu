@@ -29,7 +29,6 @@ jobs:
     - name: Set PKG_CONFIG_PATH
       run: |
         echo "PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig" >> $GITHUB_ENV
-        echo "export PKG_CONFIG_PATH" >> $GITHUB_ENV
     - name: Compile
       run: make CC=${{ matrix.compiler }}
     - name: Run tests
