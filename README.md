@@ -174,7 +174,7 @@ Follow the steps below for your specific distribution. Each section lists the re
 
 3. **Clone the Repository**  
    Navigate to your desired source directory and clone gmenu:  
-   `git clone https://github.com/yourusername/gmenu.git`  
+   `git clone https://github.com/ic0d3-graves/gmenu.git`  
    Then change into the repository:  
    `cd gmenu`
 
@@ -198,7 +198,7 @@ Follow the steps below for your specific distribution. Each section lists the re
 
 3. **Clone the Repository**  
    Clone the gmenu repository into your chosen directory by running:  
-   `git clone https://github.com/yourusername/gmenu.git`  
+   `git clone https://github.com/ic0d3-graves/gmenu.git`  
    Then change into the directory:  
    `cd gmenu`
 
@@ -222,7 +222,7 @@ Follow the steps below for your specific distribution. Each section lists the re
 
 3. **Clone the Repository**  
    Clone the repository by running:  
-   `git clone https://github.com/yourusername/gmenu.git`  
+   `git clone https://github.com/ic0d3-graves/gmenu.git`  
    Then change into the cloned directory:  
    `cd gmenu`
 
