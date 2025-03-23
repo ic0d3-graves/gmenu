@@ -27,7 +27,9 @@ jobs:
     - name: Install dependencies
       run: sudo apt-get install -y ${{ matrix.compiler }} libx11-dev libxft-dev pkg-config
     - name: Set PKG_CONFIG_PATH
-      run: echo "PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig" >> $GITHUB_ENV
+      run: |
+        echo "PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig" >> $GITHUB_ENV
+        echo "export PKG_CONFIG_PATH" >> $GITHUB_ENV
     - name: Compile
       run: make CC=${{ matrix.compiler }}
     - name: Run tests
