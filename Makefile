@@ -15,4 +15,8 @@ clean:
 install: $(TARGET)
 	cp $(TARGET) /usr/bin/
 
-.PHONY: all clean install
+check: $(TARGET)
+	@echo "Running tests..."
+	./$(TARGET)
+
+.PHONY: all clean install check
