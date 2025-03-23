@@ -25,14 +25,20 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-build-
     - name: Install dependencies
-      run: sudo apt-get install -y ${{ matrix.compiler }} libx11-dev libxft-dev pkg-config
+      run: sudo apt-get install -y ${{ matrix.compiler }} libx11-dev libxft-dev pkg-config xvfb
     - name: Set PKG_CONFIG_PATH
       run: |
         echo "PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/share/pkgconfig" >> $GITHUB_ENV
+    - name: Start Xvfb
+      run: |
+        Xvfb :99 -screen 0 1024x768x24 &
+        export DISPLAY=:99
     - name: Compile
       run: make CC=${{ matrix.compiler }}
     - name: Run tests
-      run: make check
+      run: |
+        export DISPLAY=:99
+        make check
     - name: Run distcheck
       run: make distcheck
 
