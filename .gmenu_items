@@ -1,0 +1,70 @@
+􀈖 File Manager = thunar
+<color='#0078D7'>􀎭</color> Microsoft Edge = microsoft-edge-dev --new-window
+<color='#007ACC'>􀙅</color> VS Code = code
+􀎭 Qutebrowser = qutebrowser --target window https://google.com
+􀎭 Google Chrome = google-chrome-stable
+􀎭 Firefox = firefox
+􀎭 Zen Browser = zen-browser
+􀕮 Windows 11 = looking-glass-client win:dontUpscale no -d yes egl:vsync yes egl:doubleBuffer yes egl:multisample yes -a yes -T yes -r yes -m 97
+___
+􀉟 Coin Market = qutebrowser --target window https://coinmarketcap.com
+􀉟 Trading View = qutebrowser --target window https://tradingview.com
+___
+􀣌 System Utilities
+== 􀐙 EasyEffects = easyeffects
+== 􀐙 Fonts = font-manager
+== 􀎲 Nvidia Settings = nvidia-settings
+== 􀚁 Pacman Update = bash -i -c 'alacritty -e sudo pacman -Syyuu'
+== 􀚁 Proton QT Update = protonup-qt
+== 􀚁 Proton Update = alacritty -e 'protonup'
+== 􀜍 Change Theme = change_gde
+== 􀚂 Recompile DWM = bash -c 'alacritty -e ~/scripts/rebuild_dwm.sh'
+== 􀜀 Lxappearance = lxappearance
+== 􀊧 Volume = pavucontrol
+== 􀚁 Yay Update = bash -c 'yay -Syyuu; read -p "Press Enter to close..."'
+􀜍 Change Theme = change_gde
+􀢉 Toggle VPN = ~/scripts/toggle_vpn.sh
+􀞉 btop = alacritty -e btop
+___
+􀊚 Media
+== <color='#85C742'>􀉡</color> Rumble = qutebrowser --target window https://rumble.com/
+== <color='#FF0000'>􀉡</color> YouTube = qutebrowser --target window https://www.youtube.com/
+== <color='#FF0000'>􀉡</color> YouTube Music = qutebrowser --target window https://music.youtube.com/
+== <color='#FA2C43'>􀒿</color> Apple Music = microsoft-edge-dev --app=https://music.apple.com/
+<color='#FA2C43'>􀑈</color>  Music and Chill = python ~/scripts/main.py
+___
+􀎸 AI
+== <color='#10A37F'>􀉡</color> ChatGPT = microsoft-edge-dev --app=https://chatgpt.com/
+== 􀉡 X-Grok = microsoft-edge-dev --app=https://x.com/i/grok
+___
+􀎖 Code
+== 􀎖 Notepad++ = notepad++
+== 􀎖 Obsidian = obsidian
+== <color='#007ACC'>􀎖</color> VS Code = code
+___
+􀝕 Work
+== <color='#0078D7'>􀉡</color> Outlook - CHS = microsoft-edge-dev --app=https://outlook.office.com/mail/
+== <color='#0078D7'>􀉡</color> Teams - CHS = microsoft-edge-dev --app=https://teams.microsoft.com/
+== <color='#0078D7'>􀉡</color> Azure Portal = microsoft-edge-dev --app=https://portal.azure.com/
+== <color='#0078D7'>􀉡</color> Azure Data Factory = microsoft-edge-dev --app=https://adf.azure.com/en/home?factory=/subscriptions/6b16a2f9-885e-4666-860b-a0cd1c233570/resourceGroups/UDAP_Databricks/providers/Microsoft.DataFactory/factories/DataFactoryUDAP
+== <color='#FF3621'>􀐟</color> Databricks - BB = microsoft-edge-dev --app=https://adb-4379197397690484.4.azuredatabricks.net/?o=4379197397690484
+== <color='#FF3621'>􀐟</color> Databricks - PA = microsoft-edge-dev --app=https://adb-2573117159723697.17.azuredatabricks.net/?o=2573117159723697
+== <color='#F66627'>􀉡</color> Lucid Charts = microsoft-edge-dev --app=https://lucid.app/documents#/documents?folder_id=recent
+___
+􀠄 Personal
+== <color='#FA2C43'>􀌎</color> iCloud = microsoft-edge-dev --app=https://www.icloud.com
+== <color='#FC4C02'>􀐵</color> Strava = microsoft-edge-dev --app=https://www.strava.com/dashboard
+== 􀙖 Windy = microsoft-edge-dev --app=https://www.windy.com/
+== 􀇻 X = microsoft-edge-dev --app=https://x.com
+== <color='#E1306C'>􀉡</color> Instagram = microsoft-edge-dev --app=https://instagram.com
+== <color='#1877F2'>􀊀</color> Facebook = microsoft-edge-dev --app=https://facebook.com
+___
+Games
+== Steam = steam
+___
+􀎟 Home Network
+== 􀉡 Cockpit - Home Server = qutebrowser --target window https://192.168.3.101:9090
+== 􀉡 Cockpit - Local Server = qutebrowser --target window https://127.0.0.1:9090
+== 􀉡 Home Assistant = qutebrowser --target window http://192.168.3.101:8123
+== 􀉡 UniFi Controller = qutebrowser --target window https://192.168.3.101:8443
+== 􀉡 Webmin = qutebrowser --target window https://192.168.3.101:10000
